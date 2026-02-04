@@ -5,6 +5,30 @@ type ProductCardProps = {
   product: Product;
 };
 
+const STORE_LINKS = [
+  {
+    key: "rakuten",
+    label: "楽天市場で見る",
+    getUrl: (p: Product) => p.url,
+    className:
+      "bg-[#BF0000] text-white hover:bg-[#a00000]",
+  },
+  {
+    key: "amazon",
+    label: "Amazonで見る",
+    getUrl: (p: Product) => p.amazonUrl ?? "#",
+    className:
+      "bg-[#232F3E] text-[#FF9900] hover:bg-[#1a2533]",
+  },
+  {
+    key: "base",
+    label: "BASEで見る",
+    getUrl: (p: Product) => p.baseUrl ?? "#",
+    className:
+      "bg-[#2D7EEA] text-white hover:bg-[#2468c7]",
+  },
+] as const;
+
 export function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">
@@ -49,14 +73,19 @@ export function ProductCard({ product }: ProductCardProps) {
           ))}
         </div>
 
-        <a
-          href={product.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full rounded-2xl bg-sage py-3.5 text-center text-base font-medium text-white shadow-sm transition-all hover:bg-sage-dark hover:shadow-md"
-        >
-          商品を見る →
-        </a>
+        <div className="flex flex-col gap-2">
+          {STORE_LINKS.map(({ key, label, getUrl, className }) => (
+            <a
+              key={key}
+              href={getUrl(product)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`block w-full rounded-xl py-3 text-center text-sm font-medium shadow-sm transition-all hover:shadow-md ${className}`}
+            >
+              {label}
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );

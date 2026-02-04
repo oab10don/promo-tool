@@ -4,6 +4,8 @@ export type Product = {
   id: string;
   name: string;
   url: string;
+  amazonUrl?: string;
+  baseUrl?: string;
   image?: string;
   why: string;
   howTo: string;
