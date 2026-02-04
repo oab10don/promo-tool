@@ -5,6 +5,7 @@ import type { SkinType } from "@/data/skin-types";
 import { RECOMMENDATIONS } from "@/data/recommendations";
 import { ROUTINES } from "@/data/routines";
 import { BrandShell } from "@/components/BrandShell";
+import { KeywordChips } from "@/components/KeywordChips";
 import { ProductCard } from "@/components/ProductCard";
 import { ScoreChart } from "@/components/ScoreChart";
 import { RoutineBlock } from "@/components/RoutineBlock";
@@ -73,6 +74,11 @@ async function ResultContent({
         <p className="mx-auto max-w-sm text-sm leading-relaxed text-muted">
           {skinType.description}
         </p>
+      </div>
+
+      {/* あなたの傾向 */}
+      <div className="mb-10">
+        <KeywordChips type={typeParam} />
       </div>
 
       {/* スコアグラフ */}
