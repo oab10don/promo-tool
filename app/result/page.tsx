@@ -3,9 +3,11 @@ import Link from "next/link";
 import { SKIN_TYPES, SKIN_TYPE_KEYS } from "@/data/skin-types";
 import type { SkinType } from "@/data/skin-types";
 import { RECOMMENDATIONS } from "@/data/recommendations";
+import { ROUTINES } from "@/data/routines";
 import { BrandShell } from "@/components/BrandShell";
 import { ProductCard } from "@/components/ProductCard";
 import { ScoreChart } from "@/components/ScoreChart";
+import { RoutineBlock } from "@/components/RoutineBlock";
 
 function isSkinType(value: string | null): value is SkinType {
   return SKIN_TYPE_KEYS.includes(value as SkinType);
@@ -53,6 +55,7 @@ async function ResultContent({
 
   const skinType = SKIN_TYPES[typeParam];
   const products = RECOMMENDATIONS[typeParam];
+  const routine = ROUTINES[typeParam];
   const scores = parseScores(params.s);
 
   return (
@@ -96,6 +99,16 @@ async function ResultContent({
               <ProductCard product={product} />
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* ルーティン例 */}
+      <div className="mb-10">
+        <h2 className="animate-fade-up stagger-3 mb-5 text-center font-serif text-lg text-ink">
+          おすすめの使い方（目安）
+        </h2>
+        <div className="animate-fade-up stagger-4">
+          <RoutineBlock routine={routine} />
         </div>
       </div>
 
