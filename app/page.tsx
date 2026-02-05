@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { BRAND } from "@/data/brand";
 import { BrandShell } from "@/components/BrandShell";
+import { DateLabel } from "@/components/DateLabel";
 
 export default function Home() {
   return (
     <BrandShell>
       <div className="flex min-h-[80vh] flex-col items-center justify-center text-center">
         <div className="animate-fade-up">
+          <DateLabel />
           <p className="mb-3 text-sm tracking-widest text-muted">
             {BRAND.name}
           </p>

@@ -5,15 +5,24 @@ import { useRouter } from "next/navigation";
 import { QUESTIONS } from "@/data/questions";
 import type { ScoreMap } from "@/data/questions";
 import { calculateTotals, determineSkinType } from "@/lib/scoring";
+import { useWeather } from "@/lib/weather-context";
+import type { WeatherData } from "@/lib/weather-context";
 import { BrandShell } from "@/components/BrandShell";
 import { ProgressBar } from "@/components/ProgressBar";
 import { QuizStep } from "@/components/QuizStep";
+import { EnvironmentStep } from "@/components/EnvironmentStep";
 
 export default function QuizPage() {
   const router = useRouter();
+  const { setWeather } = useWeather();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<ScoreMap[]>([]);
   const [transitioning, setTransitioning] = useState(false);
+  const [showEnvironment, setShowEnvironment] = useState(false);
+  const [pendingResult, setPendingResult] = useState<{
+    skinType: string;
+    scores: string;
+  } | null>(null);
 
   const handleSelect = useCallback(
     (scores: ScoreMap) => {
@@ -24,8 +33,18 @@ export default function QuizPage() {
       if (step + 1 >= QUESTIONS.length) {
         const skinType = determineSkinType(newAnswers);
         const totals = calculateTotals(newAnswers);
-        const s = [totals.DRY, totals.SENSITIVE, totals.DULLNESS, totals.BARRIER].join(",");
-        router.push(`/result?type=${skinType}&s=${s}`);
+        const s = [
+          totals.DRY,
+          totals.SENSITIVE,
+          totals.DULLNESS,
+          totals.BARRIER,
+        ].join(",");
+        setPendingResult({ skinType, scores: s });
+        setTransitioning(true);
+        setTimeout(() => {
+          setShowEnvironment(true);
+          setTransitioning(false);
+        }, 300);
         return;
       }
 
@@ -36,7 +55,7 @@ export default function QuizPage() {
         setTransitioning(false);
       }, 300);
     },
-    [answers, step, transitioning, router]
+    [answers, step, transitioning]
   );
 
   const handleBack = useCallback(() => {
@@ -50,6 +69,17 @@ export default function QuizPage() {
     }, 300);
   }, [step, transitioning]);
 
+  const handleEnvironmentSubmit = useCallback(
+    (weather: WeatherData | null) => {
+      if (!pendingResult) return;
+      setWeather(weather);
+      router.push(
+        `/result?type=${pendingResult.skinType}&s=${pendingResult.scores}`
+      );
+    },
+    [pendingResult, setWeather, router]
+  );
+
   return (
     <BrandShell>
       <ProgressBar current={step + 1} total={QUESTIONS.length} />
@@ -58,12 +88,16 @@ export default function QuizPage() {
           transitioning ? "opacity-0" : "opacity-100"
         }`}
       >
-        <QuizStep
-          question={QUESTIONS[step]}
-          onSelect={handleSelect}
-          onBack={handleBack}
-          canGoBack={step > 0}
-        />
+        {showEnvironment ? (
+          <EnvironmentStep onSubmit={handleEnvironmentSubmit} />
+        ) : (
+          <QuizStep
+            question={QUESTIONS[step]}
+            onSelect={handleSelect}
+            onBack={handleBack}
+            canGoBack={step > 0}
+          />
+        )}
       </div>
     </BrandShell>
   );

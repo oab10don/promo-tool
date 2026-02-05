@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BRAND } from "@/data/brand";
+import { WeatherProvider } from "@/lib/weather-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className="grain">{children}</body>
+      <body className="grain">
+        <WeatherProvider>{children}</WeatherProvider>
+      </body>
     </html>
   );
 }

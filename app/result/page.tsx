@@ -13,6 +13,7 @@ import { RoutineBlock } from "@/components/RoutineBlock";
 import { ShareButtons } from "@/components/ShareButtons";
 import { CouponBanner } from "@/components/CouponBanner";
 import { ShopButton } from "@/components/ShopButton";
+import { WeatherBadge } from "@/components/WeatherBadge";
 
 function isSkinType(value: string | null): value is SkinType {
   return SKIN_TYPE_KEYS.includes(value as SkinType);
@@ -81,6 +82,9 @@ async function ResultContent({
           {skinType.description}
         </p>
       </div>
+
+      {/* 環境情報 */}
+      <WeatherBadge />
 
       {/* あなたの傾向 */}
       <div className="mb-10">
