@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Product } from "@/data/recommendations";
 import { BRAND } from "@/data/brand";
 
@@ -16,6 +17,17 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">
+      {product.image && (
+        <div className="relative aspect-[4/3] w-full bg-sand/20">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            sizes="(max-width: 672px) 100vw, 672px"
+            className="object-cover"
+          />
+        </div>
+      )}
       <div className="p-5 sm:p-6">
         <h3 className="mb-1 font-serif text-xl leading-snug text-ink sm:text-2xl">
           {product.name}
