@@ -12,6 +12,7 @@ import { ScoreChart } from "@/components/ScoreChart";
 import { RoutineBlock } from "@/components/RoutineBlock";
 import { ShareButtons } from "@/components/ShareButtons";
 import { CouponBanner } from "@/components/CouponBanner";
+import { ShopButton } from "@/components/ShopButton";
 
 function isSkinType(value: string | null): value is SkinType {
   return SKIN_TYPE_KEYS.includes(value as SkinType);
@@ -147,14 +148,7 @@ async function ResultContent({
         >
           もう一度診断する
         </Link>
-        <a
-          href={BRAND.shopUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block rounded-full bg-sage px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-sage-dark"
-        >
-          ショップへ →
-        </a>
+        <ShopButton />
       </div>
     </BrandShell>
   );

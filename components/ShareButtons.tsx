@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { BRAND } from "@/data/brand";
+import { isDemoMode } from "@/lib/demo";
+import { DemoModal } from "@/components/DemoModal";
 
 type ShareButtonsProps = {
   skinTypeLabel: string;
@@ -23,9 +26,17 @@ function XIcon() {
 }
 
 export function ShareButtons({ skinTypeLabel }: ShareButtonsProps) {
+  const demo = isDemoMode();
+  const [modalOpen, setModalOpen] = useState(false);
+
   const shareText = `${BRAND.name}の肌悩み診断で「${skinTypeLabel}」と診断されました！あなたも試してみませんか？`;
 
   const handleShare = (platform: "line" | "x") => {
+    if (demo) {
+      setModalOpen(true);
+      return;
+    }
+
     const currentUrl = window.location.href;
     const encoded = encodeURIComponent(shareText + "\n" + currentUrl);
 
@@ -38,26 +49,29 @@ export function ShareButtons({ skinTypeLabel }: ShareButtonsProps) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-3">
-      <p className="text-xs text-muted">結果をシェアする</p>
-      <div className="flex gap-3">
-        <button
-          type="button"
-          onClick={() => handleShare("line")}
-          className="flex items-center gap-2 rounded-full bg-[#06C755] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:brightness-110 hover:shadow-md"
-        >
-          <LineIcon />
-          LINE
-        </button>
-        <button
-          type="button"
-          onClick={() => handleShare("x")}
-          className="flex items-center gap-2 rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-gray-800 hover:shadow-md"
-        >
-          <XIcon />
-          X
-        </button>
+    <>
+      <div className="flex flex-col items-center gap-3">
+        <p className="text-xs text-muted">結果をシェアする</p>
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={() => handleShare("line")}
+            className="flex items-center gap-2 rounded-full bg-[#06C755] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:brightness-110 hover:shadow-md"
+          >
+            <LineIcon />
+            LINE
+          </button>
+          <button
+            type="button"
+            onClick={() => handleShare("x")}
+            className="flex items-center gap-2 rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-gray-800 hover:shadow-md"
+          >
+            <XIcon />
+            X
+          </button>
+        </div>
       </div>
-    </div>
+      <DemoModal open={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
   );
 }
