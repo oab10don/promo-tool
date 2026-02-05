@@ -1,9 +1,10 @@
 import { ImageResponse } from "next/og";
+import { BRAND } from "@/data/brand";
 import { SKIN_TYPES } from "@/data/skin-types";
 import type { SkinType } from "@/data/skin-types";
 
 export const runtime = "edge";
-export const alt = "肌悩み診断結果 | mariko-s";
+export const alt = `肌悩み診断結果 | ${BRAND.name}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -79,7 +80,7 @@ export default async function OgImage({
             letterSpacing: "0.15em",
           }}
         >
-          肌悩み診断 | mariko-s
+          肌悩み診断 | {BRAND.name}
         </div>
       </div>
     ),

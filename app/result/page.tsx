@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import { BRAND } from "@/data/brand";
 import { SKIN_TYPES, SKIN_TYPE_KEYS } from "@/data/skin-types";
 import type { SkinType } from "@/data/skin-types";
 import { RECOMMENDATIONS } from "@/data/recommendations";
@@ -57,7 +58,9 @@ async function ResultContent({
   }
 
   const skinType = SKIN_TYPES[typeParam];
-  const products = RECOMMENDATIONS[typeParam];
+  const products = RECOMMENDATIONS[typeParam].filter(
+    (p) => p.status === "active"
+  );
   const routine = ROUTINES[typeParam];
   const scores = parseScores(params.s);
 
@@ -122,7 +125,7 @@ async function ResultContent({
 
       {/* クーポン */}
       <div className="animate-fade-up stagger-4 mb-10">
-        <CouponBanner code="HADACARE2025" />
+        <CouponBanner code={BRAND.couponCode} />
       </div>
 
       {/* SNSシェア */}
@@ -145,7 +148,7 @@ async function ResultContent({
           もう一度診断する
         </Link>
         <a
-          href="https://www.rakuten.co.jp/mariko-s/"
+          href={BRAND.shopUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block rounded-full bg-sage px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-sage-dark"

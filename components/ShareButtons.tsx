@@ -1,5 +1,7 @@
 "use client";
 
+import { BRAND } from "@/data/brand";
+
 type ShareButtonsProps = {
   skinTypeLabel: string;
 };
@@ -21,7 +23,7 @@ function XIcon() {
 }
 
 export function ShareButtons({ skinTypeLabel }: ShareButtonsProps) {
-  const shareText = `肌悩み診断で「${skinTypeLabel}」と診断されました！あなたも試してみませんか？`;
+  const shareText = `${BRAND.name}の肌悩み診断で「${skinTypeLabel}」と診断されました！あなたも試してみませんか？`;
 
   const handleShare = (platform: "line" | "x") => {
     const currentUrl = window.location.href;

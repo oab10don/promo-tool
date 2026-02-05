@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { BRAND } from "@/data/brand";
 
 type CouponBannerProps = {
   code: string;
@@ -40,7 +41,7 @@ export function CouponBanner({ code }: CouponBannerProps) {
         </button>
       </div>
       <p className="mt-3 text-[11px] text-muted/70">
-        ※ 楽天市場の商品ページでご利用いただけます
+        {BRAND.couponNote}
       </p>
     </div>
   );

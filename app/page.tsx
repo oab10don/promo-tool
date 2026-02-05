@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BRAND } from "@/data/brand";
 import { BrandShell } from "@/components/BrandShell";
 
 export default function Home() {
@@ -7,19 +8,13 @@ export default function Home() {
       <div className="flex min-h-[80vh] flex-col items-center justify-center text-center">
         <div className="animate-fade-up">
           <p className="mb-3 text-sm tracking-widest text-muted">
-            mariko-s
+            {BRAND.name}
           </p>
           <h1 className="mb-6 font-serif text-3xl leading-snug text-ink sm:text-4xl">
-            あなたの肌に
-            <br />
-            寄り添うハーブを
+            {BRAND.tagline}
           </h1>
           <p className="mx-auto mb-4 max-w-sm text-base leading-relaxed text-muted">
-            5つの質問に答えるだけで
-            <br />
-            今のあなたにぴったりの
-            <br />
-            ハーブアイテムをご提案します
+            {BRAND.description}
           </p>
         </div>
 
