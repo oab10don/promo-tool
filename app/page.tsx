@@ -8,7 +8,6 @@ export default function Home() {
     <BrandShell>
       <div className="flex min-h-[80vh] flex-col items-center justify-center text-center">
         <div className="animate-fade-up">
-          <DateLabel />
           <p className="mb-3 text-sm tracking-widest text-muted">
             {BRAND.name}
           </p>
@@ -20,12 +19,13 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="animate-fade-up stagger-2">
+        <div className="animate-fade-up stagger-2 mt-6 flex flex-col items-center">
+          <DateLabel />
           <Link
             href="/quiz"
-            className="mt-6 inline-block rounded-full bg-sage px-8 py-3.5 text-base font-medium text-white shadow-sm transition-all hover:bg-sage-dark hover:shadow-md"
+            className="inline-block rounded-full bg-sage px-8 py-3.5 text-base font-medium text-white shadow-sm transition-all hover:bg-sage-dark hover:shadow-md"
           >
-            診断をはじめる
+            今日の診断をはじめる
           </Link>
         </div>
 
