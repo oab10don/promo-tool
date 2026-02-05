@@ -9,6 +9,8 @@ import { KeywordChips } from "@/components/KeywordChips";
 import { ProductCard } from "@/components/ProductCard";
 import { ScoreChart } from "@/components/ScoreChart";
 import { RoutineBlock } from "@/components/RoutineBlock";
+import { ShareButtons } from "@/components/ShareButtons";
+import { CouponBanner } from "@/components/CouponBanner";
 
 function isSkinType(value: string | null): value is SkinType {
   return SKIN_TYPE_KEYS.includes(value as SkinType);
@@ -116,6 +118,16 @@ async function ResultContent({
         <div className="animate-fade-up stagger-4">
           <RoutineBlock routine={routine} />
         </div>
+      </div>
+
+      {/* クーポン */}
+      <div className="animate-fade-up stagger-4 mb-10">
+        <CouponBanner code="HADACARE2025" />
+      </div>
+
+      {/* SNSシェア */}
+      <div className="animate-fade-up stagger-4 mb-8">
+        <ShareButtons skinTypeLabel={skinType.label} />
       </div>
 
       {/* 注意書き */}

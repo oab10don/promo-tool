@@ -39,6 +39,17 @@ export default function QuizPage() {
     [answers, step, transitioning, router]
   );
 
+  const handleBack = useCallback(() => {
+    if (step === 0 || transitioning) return;
+
+    setTransitioning(true);
+    setTimeout(() => {
+      setAnswers((prev) => prev.slice(0, -1));
+      setStep((s) => s - 1);
+      setTransitioning(false);
+    }, 300);
+  }, [step, transitioning]);
+
   return (
     <BrandShell>
       <ProgressBar current={step + 1} total={QUESTIONS.length} />
@@ -47,7 +58,12 @@ export default function QuizPage() {
           transitioning ? "opacity-0" : "opacity-100"
         }`}
       >
-        <QuizStep question={QUESTIONS[step]} onSelect={handleSelect} />
+        <QuizStep
+          question={QUESTIONS[step]}
+          onSelect={handleSelect}
+          onBack={handleBack}
+          canGoBack={step > 0}
+        />
       </div>
     </BrandShell>
   );

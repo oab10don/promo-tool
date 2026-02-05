@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://promo-tool.vercel.app"),
   title: "肌悩み診断 | mariko-s",
   description:
     "5つの質問であなたの肌タイプを診断。自然派ハーブコスメのおすすめアイテムをご提案します。",
