@@ -5,8 +5,8 @@ import { DateLabel } from "@/components/DateLabel";
 
 export default function Home() {
   return (
-    <BrandShell>
-      <div className="flex min-h-[80vh] flex-col items-center justify-center text-center">
+    <BrandShell fixedHeight>
+      <div className="flex flex-1 flex-col items-center justify-center text-center">
         <div className="animate-fade-up">
           <p className="mb-3 text-sm tracking-widest text-muted">
             {BRAND.name}
@@ -29,7 +29,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <p className="animate-fade-up stagger-3 mt-10 max-w-xs text-xs leading-relaxed text-muted/70">
+        <p className="animate-fade-up stagger-3 mt-6 max-w-xs text-xs leading-relaxed text-muted/70 sm:mt-10">
           ※ この診断は医療行為ではありません。結果はあくまで参考としてお楽しみください。
         </p>
       </div>
